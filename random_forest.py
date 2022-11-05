@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-from sklearn.linear_model import LogisticRegression
+from sklearn.ensemble import RandomForestClassifier
 from sklearn.preprocessing import LabelEncoder, StandardScaler
 from sklearn.pipeline import make_pipeline
 from sklearn.metrics import accuracy_score
@@ -24,7 +24,7 @@ X = data[input_cols]
 Y = data[output_cols]
 
 # FITTING MODEL
-model = LogisticRegression(multi_class='multinomial', solver='newton-cg',max_iter =1000)
+model = RandomForestClassifier(max_depth=2, random_state=0)
 model.fit(X, Y)
 
 test_data = pd.read_csv('test dataset.csv')
@@ -60,47 +60,45 @@ joblib.dump(model, "train_model.pkl")
 show = joblib.load("train_model.pkl")
 
 #INPUTTING VALUES
-print("*** PERSONALITY PREDICTION! ***")
 gender = input("Enter gender: ")
 if(gender == "Female"):
     gender_no = 1
 else:
     gender_no = 2
-age = input("Enter age: ")
-print("Provide your responses on a scale of 1-10")
-print()
+age = input("Enter gender: ")
+print("Provide your responses on a scale of 1-10 /n")
 
 #CALCULATING OPENNESS SCORE
-o_1 = float(input("How likely are you to talk to a friend's friend in a club? : "))
-o_2 = float(input("How likely are you to try new things at a restaurant? : "))
-o_3 = float(input("How likely are you to share your problems and secrets with your close friends/family? : "))
+o_1 = float(input("How likely are you to talk to a friend's friend in a club?"))
+o_2 = float(input("How likely are you to try new things at a restaurant?"))
+o_3 = float(input("How likely are you to share your problems and secrets with your close friends/family?"))
 openness = (o_1+o_2+o_3)/3
 
 #CALCULATING NEUROTICISM SCORE
 
-n_1 = float(input("How often do you experience mood swings and anxiety? : "))
-n_2 = float(input("How likely are you to get easily offended or hurt? : "))
-n_3 = float(input("How often do you feel you're lonely or isolated? : "))
+n_1 = float(input("How often do you experience mood swings and anxiety?"))
+n_2 = float(input("How likely are you to get easily offended or hurt?"))
+n_3 = float(input("How often do you feel you're lonely or isolated?"))
 neuroticism = (n_1+n_2+n_3)/3
 
 #CALCULATING CONSCIENTIOUSNESS SCORE
 
-c_1 = float(input("How likely are you to focus on long term goals than short term ones? : "))
-c_2 = float(input("How rigid are you about perfection in your tasks/duties? : "))
-c_3 = float(input("How often to do you cancel plans to complete personal work? : "))
+c_1 = float(input("How likely are you to focus on long term goals than short term ones?"))
+c_2 = float(input("How rigid are you about perfection in your tasks/duties?"))
+c_3 = float(input("How often to do you cancel plans to complete personal work?"))
 conscientiousness = (c_1+c_2+c_3)/3
 
 #CALCULATING AGREEABLENESS SCORE
 
-a_1 = float(input("How likely are you put your others' needs before your own? : "))
-a_2 = float(input("How emotionally supportive are you towards others? : "))
-a_3 = float(input("How likely are you to resolve conflict rather than staying out of it? : "))
+a_1 = float(input("How likely are you put your others' needs before your own?"))
+a_2 = float(input("How emotionally supportive are you towards others?"))
+a_3 = float(input("How likely are you to resolve conflict rather than staying out of it?"))
 agreeableness = (a_1+a_2+a_3)/3
 #CALCULATING EXTRAVERSION SCORE
 
-e_1 = float(input("How much do you prefer having a big group of friends? : "))
-e_2 = float(input("How likely are you to think out loud as opposed to thinking silently? : "))
-e_3 = float(input("How much do you enjoy working in teams? : "))
+e_1 = float(input("How much do you prefer having a big group of friends?"))
+e_2 = float(input("How likely are you to think out loud as opposed to thinking silently?"))
+e_3 = float(input("How much do you enjoy working in teams?"))
 extraversion = (e_1+e_2+e_3)/3
 
 #CALCULATING RESULTANT ARRAY
